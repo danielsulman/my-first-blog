@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Lista de postagem</title>
+</head>
+<body>
+    <div title="Head">
+        <h1><a href="blog:post_list">Blog</a></h1>
+    </div>
+        {% for post in posts %}
+            <div>
+                <h2><a href="blog:post_detail">{{ post.title }}</a></h2>
+                <p>{{ post.text }}</p>
+            </div>
+        {% endfor %}
+</body>
+</html>
