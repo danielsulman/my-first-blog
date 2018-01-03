@@ -1,17 +1,13 @@
-<html>
-<head>
-    <title>Lista de postagem</title>
-</head>
-<body>
-    <div title="Head">
-        <h1><a href="blog:post_list">Blog</a></h1>
-    </div>
-        {% for post in posts %}
-            <div>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
                 <p>Created: {{ post.created_date }}</p>
-                <h2><a href="blog:post_detail">{{ post.title }}</a></h2>
-                <p>{{ post.text }}</p>
             </div>
-        {% endfor %}
-</body>
-</html>
+            <h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
