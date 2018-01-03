@@ -8,6 +8,7 @@
     </div>
         {% for post in posts %}
             <div>
+                <p>Created: {{ post.created_date }}</p>
                 <h2><a href="blog:post_detail">{{ post.title }}</a></h2>
                 <p>{{ post.text }}</p>
             </div>
