@@ -2,9 +2,13 @@
 
 {% block content %}
     <div class="post">
-        <div class="date">
-            Created: {{ post.created_date }}
-        </div>
+        {% if post.published_date %}
+            <div class="date">
+                <p>Published: {{ post.published_date }}</p>
+            </div>
+        {% else %}
+            <a class="btn btn-default" href="{% url 'blog:post_publish' pk=post.pk %}">Pusblish</a>
+        {% endif %}
         <h1>{{ post.title }}</h1>
         <p>{{ post.text|linebreaksbr }}</p>
     </div>

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def post_list(request):
-    posts = get_list_or_404(Post)
+    posts = get_list_or_404(Post, published_date__lte=timezone.now())
     return render(request,'blog/post_list.html',{'posts': posts})
 
 
@@ -17,9 +17,8 @@ def post_detail(request, pk):
     return render(request,'blog/post_detail.html',{'post': post})
 
 
-@login_required(redirect_field_name='blog:post_list')
 def post_new(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
@@ -29,4 +28,15 @@ def post_new(request):
             return redirect('blog:post_detail', pk=post.pk)
     else:
         form = PostForm()
+
     return render(request, 'blog/post_new.html', {'form': form})
+
+def post_draft_list(request):
+    posts = get_list_or_404(Post, published_date__isnull=True, author=request.user)
+
+    return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publish()
+    return redirect('blog:post_detail', pk=pk)
