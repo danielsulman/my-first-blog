@@ -1,7 +1,8 @@
-from django.shortcuts import render,get_list_or_404,get_object_or_404,redirect  
+from django.shortcuts import render,get_list_or_404,get_object_or_404,redirect
 from .models import Post
 from .forms import PostForm
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -16,6 +17,7 @@ def post_detail(request, pk):
     return render(request,'blog/post_detail.html',{'post': post})
 
 
+@login_required(redirect_field_name='blog:post_list')
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
