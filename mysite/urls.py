@@ -21,5 +21,6 @@ from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('login', views.login, name='login')
+    path('login', views.login, name='login'),
+    path('logout', views.logout, name='logout', kwargs={'next_page': '/'})
 ]
