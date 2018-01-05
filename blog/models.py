@@ -17,6 +17,9 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)
+
 
 class Comment(models.Model):
     #Related_name define como o Post irá referenciar os comments.
@@ -31,5 +34,5 @@ class Comment(models.Model):
         return self.text
 
     def approve(self):
-        self.approved_date = timezone.now()
+        self.approved_comment = True
         self.save()

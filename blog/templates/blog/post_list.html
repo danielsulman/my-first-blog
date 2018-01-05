@@ -8,10 +8,10 @@
             </div>
             <h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <p>{{ post.text }}</p>
-            {% if post.comments.count > 0 %}
-                <a href="{% url 'blog:post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+            {% if post.approved_comments.count > 0 %}
+                <a href="{% url 'blog:post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
             {% else %}
-                <p>Comments: {{post.comments.count }}</p>
+                <p>Comments: {{post.approved_comments.count }}</p>
             {% endif %}
         </div>
     {% endfor %}
