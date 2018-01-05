@@ -16,3 +16,20 @@ class Post(models.Model):
     def publish(self):
         self.published_date = timezone.now()
         self.save()
+
+
+class Comment(models.Model):
+    #Related_name define como o Post irá referenciar os comments.
+    #Ao invés de usar Post.comment_set.all(), usará Post.comments.all()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
+    author = models.CharField(max_length=200)
+    text = models.TextField(default='')
+    created_date = models.DateTimeField(default=timezone.now())
+    approved_date = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+    def approve(self):
+        self.approved_date = timezone.now()
+        self.save()
