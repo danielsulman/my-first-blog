@@ -25,7 +25,7 @@ class Comment(models.Model):
     author = models.CharField(max_length=200)
     text = models.TextField(default='')
     created_date = models.DateTimeField(default=timezone.now())
-    approved_date = models.BooleanField(default=False)
+    approved_comment = models.BooleanField(default=False)
 
     def __str__(self):
         return self.text
